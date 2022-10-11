@@ -1,0 +1,37 @@
+Tên đồ án
+Chức năng (Tên + Người làm)
+Cấu trúc database
+Liệt kê chức năng stored proceduce, function, trigger, transaction
+Chụp kết quả project
+
+
+Báo cáo chỉ chạy demo không trình chiếu slide
+Mỗi thành viên 6-7 chức năng
+
+
+Chủ đề:
+Quản lí nhập kho hàng
+
+Hưng:
+Thêm thông tin hàng hóa (Thủ tục)
+Sửa thông tin hàng hóa (Thủ tục)
+Xóa thông tin hàng hóa (Thủ tục)
+
+Dũng
+Liệt kê ds thông tin hàng hóa
+Tìm kiếm hàng hóa theo tên (Hàm)
+Thống kê hàng hóa theo tháng (Thủ tục)
+
+Hưng:
+Thêm loại hàng hóa (Thủ tục)
+Sửa loại hàng hóa (Thủ tục)
+Xóa loại hàng hóa (Thủ tục)
+Liệt kê ds loại hàng hóa
+Tìm kiếm loại hàng hóa theo tên (Hàm)
+
+Dũng:
+Thêm lô hàng (Thủ tục)
+Sửa lô hàng (Thủ tục)
+Xóa lô hàng (Thủ tục)
+Tìm kiếm hàng hóa theo mã lô hàng (Hàm)
+
