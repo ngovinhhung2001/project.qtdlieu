@@ -44,7 +44,7 @@ public class SanPhamClass {
                 int rs_ma_sanpham = rs.getInt("ma_sanpham");
                 String rs_ten_sanpham = rs.getString("ten_sanpham");
                 String rs_mota_sanpham = rs.getString("mota_sanpham");
-                String rs_ma_loaisanpham = rs.getString("ma_loaisanpham");
+                int rs_ma_loaisanpham = rs.getInt("ma_loaisanpham");
                 System.out.println("Mã sản phẩm: " + rs_ma_sanpham);
                 System.out.println("Tên sản phẩm: " + rs_ten_sanpham);
                 System.out.println("Mô tả sản phẩm: " + rs_mota_sanpham);

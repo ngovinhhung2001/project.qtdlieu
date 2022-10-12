@@ -14,7 +14,7 @@ public class MySQLConnect {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             conn = DriverManager.getConnection("jdbc:mysql://localhost/projectqtdlieu?"
                     + "user=root");
-            System.out.println("Noi ket thanh cong");
+//            System.out.println("Noi ket thanh cong");
 
         } catch (Exception ex) { //xử lý ngoại lệ nếu có
             System.out.println("Noi ket khong thanh cong");
