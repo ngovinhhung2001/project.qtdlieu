@@ -6,7 +6,7 @@ public class MainClass {
 
     public static void main(String args[]) {
         Connection conn = null;
-        Main.LoaiSanPhamClass.hienthi_loaisanpham();
-        Main.LoaiSanPhamClass.them_loaisanpham();
+//        Main.LoaiSanPhamClass.hienthi_loaisanpham();
+        Main.LoaiSanPhamClass.sua_loaisanpham();
     }
 }
