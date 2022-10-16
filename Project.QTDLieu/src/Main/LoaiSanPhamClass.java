@@ -18,18 +18,18 @@ public class LoaiSanPhamClass {
             String sql = "SELECT * FROM loaisanpham";
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
-            System.out.println("--------------------");
-            System.out.println("Danh sách loại sản phẩm");
-            System.out.println("--------------------");
+            System.out.println("-------------------------------------------------------------------");
+            System.out.println(" Mã loại sản phẩm\tTên loại sản phẩm\tMô tả loại sản phẩm");
+            System.out.println("-------------------------------------------------------------------");
             while (rs.next()) {
                 int rs_ma_loaisanpham = rs.getInt("ma_loaisanpham");
                 String rs_ten_loaisanpham = rs.getString("ten_loaisanpham");
                 String rs_mota_loaisanpham = rs.getString("mota_loaisanpham");
-                System.out.println("Mã loại sản phẩm: " + rs_ma_loaisanpham);
-                System.out.println("Tên loại sản phẩm: " + rs_ten_loaisanpham);
-                System.out.println("Mô tả loại sản phẩm: " + rs_mota_loaisanpham);
-                System.out.println("-------------------");
+                System.out.print("        " + rs_ma_loaisanpham + "\t\t");
+                System.out.print("" + rs_ten_loaisanpham + "\t\t");
+                System.out.println("" + rs_mota_loaisanpham);
             }
+            System.out.println("-------------------------------------------------------------------");
         } catch (SQLException ex) { //xử lý ngoại lệ
             System.out.println("SQLException: " + ex.getMessage());
         }
