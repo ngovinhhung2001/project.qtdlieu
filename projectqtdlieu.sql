@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 16, 2022 lúc 01:10 PM
+-- Thời gian đã tạo: Th10 16, 2022 lúc 02:34 PM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.0.19
 
@@ -50,6 +50,11 @@ END$$
 DROP PROCEDURE IF EXISTS `xoa_loaisanpham`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `xoa_loaisanpham` (IN `ma_loai` INT(10))   BEGIN
     DELETE FROM loaisanpham WHERE ma_loaisanpham = ma_loai;
+END$$
+
+DROP PROCEDURE IF EXISTS `xoa_sanpham`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `xoa_sanpham` (IN `ma` INT(10))   BEGIN
+    DELETE FROM sanpham WHERE ma_sanpham = ma;
 END$$
 
 --
@@ -208,7 +213,7 @@ ALTER TABLE `lohang`
 -- AUTO_INCREMENT cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
-  MODIFY `ma_sanpham` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ma_sanpham` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

@@ -176,4 +176,39 @@ public class SanPhamClass {
         }
         return flag;
     }
+    
+    public static void xoa_sanpham(Connection conn) {
+        Scanner sc = new Scanner(System.in);
+        hienthi_sanpham(conn);
+        System.out.print("Nhập mã sản phẩm muốn xóa: ");
+        int ma_sanpham = sc.nextInt();
+
+        boolean flag = false;
+        flag = tontai_sanpham(conn, ma_sanpham);
+
+        if (flag == true) {
+            System.out.println("--------------------");
+            System.out.println("Sản phẩm vừa chọn ");
+            hienthi_sanpham(conn, ma_sanpham);
+            System.out.println("Bạn có chắn chắn sẽ xóa sản phẩm vừa chọn không ?");
+            System.out.println("Có(1)\t Không(0)");
+            int confirm = sc.nextInt();
+
+            if (confirm == 1) {
+                CallableStatement cstmt = null;
+
+                try {
+                    String sql = "{call xoa_sanpham(?)}";
+                    cstmt = conn.prepareCall(sql);
+                    cstmt.setInt(1, ma_sanpham);
+                    cstmt.executeQuery();
+                    System.out.println("Đã xóa sản phẩm thành công");
+                } catch (SQLException ex) { //xử lý ngoại lệ
+                    System.out.println("SQLException: " + ex.getMessage());
+                }
+            }
+        } else {
+            System.out.println("Sản phẩm không tồn tại");
+        }
+    }
 }

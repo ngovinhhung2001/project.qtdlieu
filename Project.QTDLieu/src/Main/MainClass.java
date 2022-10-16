@@ -14,7 +14,7 @@ public class MainClass {
 //        Main.LoaiSanPhamClass.xoa_loaisanpham(conn);
 //        Main.SanPhamClass.hienthi_sanpham(conn);
 //        Main.SanPhamClass.them_sanpham(conn);
-        Main.SanPhamClass.sua_sanpham(conn);
-//        Main.SanPhamClass.xoa_loaisanpham(conn);
+//        Main.SanPhamClass.sua_sanpham(conn);
+//        Main.SanPhamClass.xoa_sanpham(conn);
     }
 }
