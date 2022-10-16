@@ -33,7 +33,7 @@ public class SanPhamClass {
     public static void hienthi_sanpham(Connection conn) {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        
+
         try {
             String sql = "SELECT * FROM sanpham";
             pstmt = conn.prepareStatement(sql);
@@ -54,25 +54,41 @@ public class SanPhamClass {
             System.out.println("SQLException: " + ex.getMessage());
         }
     }
-    
+
     public static void them_sanpham(Connection conn) {
         LoaiSanPhamClass.hienthi_loaisanpham(conn);
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhập mã loại sản phẩm cho sản phẩm: ");
         int ma_loaisanpham = sc.nextInt();
-        
+        sc.nextLine();
 
-        CallableStatement cstmt = null;
+        boolean flag = false;
+        flag = LoaiSanPhamClass.tontai_loaisanpham(conn, ma_loaisanpham);
 
-//        try {
-//            String sql = "{call them_loaisanpham(?,?)}";
-//            cstmt = conn.prepareCall(sql);
-//            cstmt.setString(1, ten_loaisanpham);
-//            cstmt.setString(2, mota_loaisanpham);
-//            cstmt.executeQuery();
-//            System.out.println("Đã thêm loại sản phẩm thành công");
-//        } catch (SQLException ex) { //xử lý ngoại lệ
-//            System.out.println("SQLException: " + ex.getMessage());
-//        }
+        if (flag == true) {
+            System.out.print("Nhập tên sản phẩm: ");
+            String ten_sanpham = sc.nextLine();
+            System.out.print("Nhập đơn vị sản phẩm: ");
+            String donvi_sanpham = sc.nextLine();
+            System.out.print("Nhập mô tả sản phẩm: ");
+            String mota_sanpham = sc.nextLine();
+
+            CallableStatement cstmt = null;
+
+            try {
+                String sql = "{call them_sanpham(?,?,?,?)}";
+                cstmt = conn.prepareCall(sql);
+                cstmt.setString(1, ten_sanpham);
+                cstmt.setString(2, donvi_sanpham);
+                cstmt.setString(3, mota_sanpham);
+                cstmt.setInt(4, ma_loaisanpham);
+                cstmt.executeQuery();
+                System.out.println("Đã thêm sản phẩm thành công");
+            } catch (SQLException ex) { //xử lý ngoại lệ
+                System.out.println("SQLException: " + ex.getMessage());
+            }
+        } else {
+            System.out.println("Loại sản phẩm không tồn tại");
+        }
     }
 }
