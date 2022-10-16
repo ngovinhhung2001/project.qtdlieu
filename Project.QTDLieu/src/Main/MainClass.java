@@ -10,6 +10,7 @@ public class MainClass {
         conn = MySQLConnect.Connect();
 //        Main.LoaiSanPhamClass.hienthi_loaisanpham();
         Main.LoaiSanPhamClass.them_loaisanpham(conn);
+//        Main.LoaiSanPhamClass.sua_loaisanpham(conn);
         Main.LoaiSanPhamClass.xoa_loaisanpham(conn);
     }
 }

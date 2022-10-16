@@ -87,26 +87,34 @@ public class LoaiSanPhamClass {
         System.out.print("Nhập mã loại sản phẩm muốn chỉnh sửa: ");
         int ma_loaisanpham = sc.nextInt();
         sc.nextLine();
-        System.out.println("--------------------");
-        System.out.println("Loại sản phẩm vừa chọn ");
-        hienthi_loaisanpham(conn, ma_loaisanpham);
-        System.out.print("Nhập tên loại sản phẩm muốn chỉnh sửa thành: ");
-        String ten_loaisanpham = sc.nextLine();
-        System.out.print("Nhập mô tả loại sản phẩm muốn chỉnh sửa thành: ");
-        String mota_loaisanpham = sc.nextLine();
 
-        CallableStatement cstmt = null;
+        boolean flag = false;
+        flag = tontai_loaisanpham(conn, ma_loaisanpham);
 
-        try {
-            String sql = "{call sua_loaisanpham(?,?,?)}";
-            cstmt = conn.prepareCall(sql);
-            cstmt.setInt(1, ma_loaisanpham);
-            cstmt.setString(2, ten_loaisanpham);
-            cstmt.setString(3, mota_loaisanpham);
-            cstmt.executeQuery();
-            System.out.println("Đã chỉnh sửa loại sản phẩm thành công");
-        } catch (SQLException ex) { //xử lý ngoại lệ
-            System.out.println("SQLException: " + ex.getMessage());
+        if (flag == true) {
+            System.out.println("--------------------");
+            System.out.println("Loại sản phẩm vừa chọn ");
+            hienthi_loaisanpham(conn, ma_loaisanpham);
+            System.out.print("Nhập tên loại sản phẩm muốn chỉnh sửa thành: ");
+            String ten_loaisanpham = sc.nextLine();
+            System.out.print("Nhập mô tả loại sản phẩm muốn chỉnh sửa thành: ");
+            String mota_loaisanpham = sc.nextLine();
+
+            CallableStatement cstmt = null;
+
+            try {
+                String sql = "{call sua_loaisanpham(?,?,?)}";
+                cstmt = conn.prepareCall(sql);
+                cstmt.setInt(1, ma_loaisanpham);
+                cstmt.setString(2, ten_loaisanpham);
+                cstmt.setString(3, mota_loaisanpham);
+                cstmt.executeQuery();
+                System.out.println("Đã chỉnh sửa loại sản phẩm thành công");
+            } catch (SQLException ex) { //xử lý ngoại lệ
+                System.out.println("SQLException: " + ex.getMessage());
+            }
+        } else {
+            System.out.println("Loại sản phẩm không tồn tại");
         }
     }
 
@@ -115,25 +123,53 @@ public class LoaiSanPhamClass {
         hienthi_loaisanpham(conn);
         System.out.print("Nhập mã loại sản phẩm muốn xóa: ");
         int ma_loaisanpham = sc.nextInt();
-        System.out.println("--------------------");
-        System.out.println("Loại sản phẩm vừa chọn ");
-        hienthi_loaisanpham(conn, ma_loaisanpham);
-        System.out.println("Bạn có chắn chắn sẽ xóa loại sản phẩm vừa chọn không ?");
-        System.out.println("Có(1)\t Không(0)");
-        int confirm = sc.nextInt();
 
-        if (confirm == 1) {
-            CallableStatement cstmt = null;
+        boolean flag = false;
+        flag = tontai_loaisanpham(conn, ma_loaisanpham);
 
-            try {
-                String sql = "{call xoa_loaisanpham(?)}";
-                cstmt = conn.prepareCall(sql);
-                cstmt.setInt(1, ma_loaisanpham);
-                cstmt.executeQuery();
-                System.out.println("Đã xóa loại sản phẩm thành công");
-            } catch (SQLException ex) { //xử lý ngoại lệ
-                System.out.println("SQLException: " + ex.getMessage());
+        if (flag == true) {
+            System.out.println("--------------------");
+            System.out.println("Loại sản phẩm vừa chọn ");
+            hienthi_loaisanpham(conn, ma_loaisanpham);
+            System.out.println("Bạn có chắn chắn sẽ xóa loại sản phẩm vừa chọn không ?");
+            System.out.println("Có(1)\t Không(0)");
+            int confirm = sc.nextInt();
+
+            if (confirm == 1) {
+                CallableStatement cstmt = null;
+
+                try {
+                    String sql = "{call xoa_loaisanpham(?)}";
+                    cstmt = conn.prepareCall(sql);
+                    cstmt.setInt(1, ma_loaisanpham);
+                    cstmt.executeQuery();
+                    System.out.println("Đã xóa loại sản phẩm thành công");
+                } catch (SQLException ex) { //xử lý ngoại lệ
+                    System.out.println("SQLException: " + ex.getMessage());
+                }
             }
+        } else {
+            System.out.println("Loại sản phẩm không tồn tại");
         }
+    }
+
+    public static boolean tontai_loaisanpham(Connection conn, int ma_loaisanpham) {
+        PreparedStatement pstmt_check = null;
+        ResultSet rs_check = null;
+        boolean flag = false;
+
+        try {
+            String sql_check = "select tontai_loaisanpham(?) tontai_loaisanpham";
+            pstmt_check = conn.prepareStatement(sql_check);
+            pstmt_check.setInt(1, ma_loaisanpham);
+            rs_check = pstmt_check.executeQuery();
+
+            while (rs_check.next()) {
+                flag = rs_check.getBoolean("tontai_loaisanpham");
+            }
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+        return flag;
     }
 }
