@@ -7,17 +7,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.CallableStatement;
 import java.util.Scanner;
-import Main.MySQLConnect;
-
 
 public class LoaiSanPhamClass {
-    
-    public static void hienthi_loaisanpham(){
+
+    public static void hienthi_loaisanpham(Connection conn) {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        Connection conn = null;
-        conn = MySQLConnect.Connect();
-        
+
         try {
             String sql = "SELECT * FROM loaisanpham";
             pstmt = conn.prepareStatement(sql);
@@ -38,17 +34,15 @@ public class LoaiSanPhamClass {
             System.out.println("SQLException: " + ex.getMessage());
         }
     }
-    
-    public static void hienthi_loaisanpham(int ma_loaisanpham){
+
+    public static void hienthi_loaisanpham(Connection conn, int ma_loaisanpham) {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        Connection conn = null;
-        conn = MySQLConnect.Connect();
-        
+
         try {
             String sql = "SELECT * FROM loaisanpham WHERE ma_loaisanpham = ?";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1,ma_loaisanpham);
+            pstmt.setInt(1, ma_loaisanpham);
             rs = pstmt.executeQuery();
 
             System.out.println("--------------------");
@@ -65,58 +59,81 @@ public class LoaiSanPhamClass {
             System.out.println("SQLException: " + ex.getMessage());
         }
     }
-    
-    public static void them_loaisanpham(){
+
+    public static void them_loaisanpham(Connection conn) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhập tên loại sản phẩm: ");
         String ten_loaisanpham = sc.nextLine();
         System.out.print("Nhập mô tả loại sản phẩm: ");
         String mota_loaisanpham = sc.nextLine();
-        
+
         CallableStatement cstmt = null;
-        Connection conn = null;
-        conn = MySQLConnect.Connect();
-        
-        try{
+
+        try {
             String sql = "{call them_loaisanpham(?,?)}";
             cstmt = conn.prepareCall(sql);
-            cstmt.setString(1,ten_loaisanpham);
-            cstmt.setString(2,mota_loaisanpham);
+            cstmt.setString(1, ten_loaisanpham);
+            cstmt.setString(2, mota_loaisanpham);
             cstmt.executeQuery();
-            System.out.println("Đã thêm thành công");
-        }catch (SQLException ex) { //xử lý ngoại lệ
+            System.out.println("Đã thêm loại sản phẩm thành công");
+        } catch (SQLException ex) { //xử lý ngoại lệ
             System.out.println("SQLException: " + ex.getMessage());
         }
     }
-    
-    public static void sua_loaisanpham(){
+
+    public static void sua_loaisanpham(Connection conn) {
         Scanner sc = new Scanner(System.in);
-        hienthi_loaisanpham();
+        hienthi_loaisanpham(conn);
         System.out.print("Nhập mã loại sản phẩm muốn chỉnh sửa: ");
         int ma_loaisanpham = sc.nextInt();
         sc.nextLine();
         System.out.println("--------------------");
         System.out.println("Loại sản phẩm vừa chọn ");
-        hienthi_loaisanpham(ma_loaisanpham);
-        System.out.println("Nhập tên loại sản phẩm muốn chỉnh sửa thành: ");
+        hienthi_loaisanpham(conn, ma_loaisanpham);
+        System.out.print("Nhập tên loại sản phẩm muốn chỉnh sửa thành: ");
         String ten_loaisanpham = sc.nextLine();
-        System.out.println("Nhập mô tả loại sản phẩm muốn chỉnh sửa thành: ");
+        System.out.print("Nhập mô tả loại sản phẩm muốn chỉnh sửa thành: ");
         String mota_loaisanpham = sc.nextLine();
-        
+
         CallableStatement cstmt = null;
-        Connection conn = null;
-        conn = MySQLConnect.Connect();
-        
-        try{
+
+        try {
             String sql = "{call sua_loaisanpham(?,?,?)}";
             cstmt = conn.prepareCall(sql);
-            cstmt.setInt(1,ma_loaisanpham);
-            cstmt.setString(2,ten_loaisanpham);
-            cstmt.setString(3,mota_loaisanpham);
+            cstmt.setInt(1, ma_loaisanpham);
+            cstmt.setString(2, ten_loaisanpham);
+            cstmt.setString(3, mota_loaisanpham);
             cstmt.executeQuery();
-            System.out.println("Đã chỉnh sửa thành công");
-        }catch (SQLException ex) { //xử lý ngoại lệ
+            System.out.println("Đã chỉnh sửa loại sản phẩm thành công");
+        } catch (SQLException ex) { //xử lý ngoại lệ
             System.out.println("SQLException: " + ex.getMessage());
+        }
+    }
+
+    public static void xoa_loaisanpham(Connection conn) {
+        Scanner sc = new Scanner(System.in);
+        hienthi_loaisanpham(conn);
+        System.out.print("Nhập mã loại sản phẩm muốn xóa: ");
+        int ma_loaisanpham = sc.nextInt();
+        System.out.println("--------------------");
+        System.out.println("Loại sản phẩm vừa chọn ");
+        hienthi_loaisanpham(conn, ma_loaisanpham);
+        System.out.println("Bạn có chắn chắn sẽ xóa loại sản phẩm vừa chọn không ?");
+        System.out.println("Có(1)\t Không(0)");
+        int confirm = sc.nextInt();
+
+        if (confirm == 1) {
+            CallableStatement cstmt = null;
+
+            try {
+                String sql = "{call xoa_loaisanpham(?)}";
+                cstmt = conn.prepareCall(sql);
+                cstmt.setInt(1, ma_loaisanpham);
+                cstmt.executeQuery();
+                System.out.println("Đã xóa loại sản phẩm thành công");
+            } catch (SQLException ex) { //xử lý ngoại lệ
+                System.out.println("SQLException: " + ex.getMessage());
+            }
         }
     }
 }
