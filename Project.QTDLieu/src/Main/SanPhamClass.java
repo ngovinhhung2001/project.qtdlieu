@@ -156,26 +156,6 @@ public class SanPhamClass {
             System.out.println("Sản phẩm không tồn tại");
         }
     }
-
-    public static boolean tontai_sanpham(Connection conn, int ma_sanpham) {
-        PreparedStatement pstmt_check = null;
-        ResultSet rs_check = null;
-        boolean flag = false;
-
-        try {
-            String sql_check = "select tontai_sanpham(?) tontai_sanpham";
-            pstmt_check = conn.prepareStatement(sql_check);
-            pstmt_check.setInt(1, ma_sanpham);
-            rs_check = pstmt_check.executeQuery();
-
-            while (rs_check.next()) {
-                flag = rs_check.getBoolean("tontai_sanpham");
-            }
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-        }
-        return flag;
-    }
     
     public static void xoa_sanpham(Connection conn) {
         Scanner sc = new Scanner(System.in);
@@ -210,5 +190,25 @@ public class SanPhamClass {
         } else {
             System.out.println("Sản phẩm không tồn tại");
         }
+    }
+    
+    public static boolean tontai_sanpham(Connection conn, int ma_sanpham) {
+        PreparedStatement pstmt_check = null;
+        ResultSet rs_check = null;
+        boolean flag = false;
+
+        try {
+            String sql_check = "select tontai_sanpham(?) tontai_sanpham";
+            pstmt_check = conn.prepareStatement(sql_check);
+            pstmt_check.setInt(1, ma_sanpham);
+            rs_check = pstmt_check.executeQuery();
+
+            while (rs_check.next()) {
+                flag = rs_check.getBoolean("tontai_sanpham");
+            }
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+        }
+        return flag;
     }
 }
