@@ -25,12 +25,12 @@ public class LoHangClass {
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
             System.out.println("------------------------------------");
-            System.out.println(" Mã loại sản phẩm\tNgày nhập vào");
+            System.out.println(" Mã lô hàng\tNgày nhập vào");
             System.out.println("------------------------------------");
             while (rs.next()) {
                 int rs_ma_lohang = rs.getInt("ma_lohang");
                 Date rs_ngay_nhapvao = rs.getDate("ngay_nhapvao");
-                System.out.print("        " + rs_ma_lohang + "\t\t");
+                System.out.print("     " + rs_ma_lohang + "\t\t");
                 System.out.println("" + rs_ngay_nhapvao);
             }
             System.out.println("------------------------------------");
@@ -97,14 +97,13 @@ public class LoHangClass {
  
     
    public static void them_lohang(Connection conn) throws ParseException {
-        //hienthi_lohang(conn);
+        hienthi_lohang(conn);
         Scanner sc = new Scanner(System.in);
-       
-        System.out.print("Nhập vào năm:");
+        System.out.print("Nhập vào năm: ");
         int nam = sc.nextInt();
-        System.out.print("Nhập vào tháng:");
+        System.out.print("Nhập vào tháng: ");
         int thang = sc.nextInt();
-        System.out.print("Nhập vào ngày:");
+        System.out.print("Nhập vào ngày: ");
         int ngay = sc.nextInt();
         
         Date ngay_nhapvao = Date.valueOf(nam+"-"+thang+"-"+ngay);
@@ -118,7 +117,7 @@ public class LoHangClass {
        
             cstmt.setDate(1, (java.sql.Date) ngay_nhapvao);
             cstmt.executeQuery();
-          System.out.println("Đã thêm lô hàng thành công");
+          System.out.println("Đã thêm lô hàng thành công.");
         } catch (SQLException ex) { //xử lý ngoại lệ
             System.out.println("SQLException: " + ex.getMessage());
         }
@@ -159,11 +158,11 @@ public class LoHangClass {
             System.out.println("--------------------");
             System.out.println("Mã lô hàng được chọn ");
             hienthi_lohang(conn, ma_lohang);
-            System.out.print("Nhập vào năm muốn chỉnh sửa:");
+            System.out.print("Nhập vào năm muốn chỉnh sửa: ");
             int nam = sc.nextInt();
-            System.out.print("Nhập vào tháng muốn chỉnh sửa:");
+            System.out.print("Nhập vào tháng muốn chỉnh sửa: ");
             int thang = sc.nextInt();
-            System.out.print("Nhập vào ngày muốn chỉnh sửa:");
+            System.out.print("Nhập vào ngày muốn chỉnh sửa: ");
             int ngay = sc.nextInt();
         
             Date ngay_nhapvao = Date.valueOf(nam+"-"+thang+"-"+ngay);
@@ -198,7 +197,7 @@ public class LoHangClass {
             System.out.println("Mã lô hàng vừa được chọn ");
             hienthi_lohang(conn, ma_lohang);
             System.out.println("Xác nhận:");
-            System.out.println("Y(1)\t N(0)");
+            System.out.println("Có(1)\t Không(0)");
             int d = sc.nextInt();
 
             if (d == 1) {

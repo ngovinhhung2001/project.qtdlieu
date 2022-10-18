@@ -69,6 +69,7 @@ public class SanPhamClass {
     }
 
     public static void them_sanpham(Connection conn) {
+        hienthi_sanpham(conn);
         LoaiSanPhamClass.hienthi_loaisanpham(conn);
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhập mã loại sản phẩm cho sản phẩm: ");

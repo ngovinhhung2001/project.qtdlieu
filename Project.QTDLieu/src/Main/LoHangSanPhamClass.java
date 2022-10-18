@@ -26,15 +26,15 @@ public class LoHangSanPhamClass {
             rs = pstmt.executeQuery();
             
             System.out.println("----------------------------------------------------------");
-            System.out.println(" Mã lô hàng\tMã sản phẩm\t  Giá nhập vào\t    Số lượng");
+            System.out.println(" Mã lô hàng\tMã sản phẩm\tGiá nhập vào\tSố lượng");
             System.out.println("----------------------------------------------------------");
             while (rs.next()) {
                 int rs_ma_lohang = rs.getInt("ma_lohang");
                 int rs_ma_sanpham = rs.getInt("ma_sanpham");
                 int rs_gia_nhapvao = rs.getInt("gia_nhapvao");
                 int rs_so_luong = rs.getInt("so_luong");
-                System.out.print("      " + rs_ma_sanpham + "\t\t"+"     ");
-                System.out.print(rs_ma_sanpham + "\t\t\t");
+                System.out.print("      " + rs_ma_lohang + "\t\t");
+                System.out.print("     " + rs_ma_sanpham + "\t\t");
                 System.out.print(rs_gia_nhapvao + "\t\t");
                 System.out.println( rs_so_luong); 
             }
@@ -48,9 +48,11 @@ public class LoHangSanPhamClass {
         public static void them_lohangsanpham(Connection conn) {
         hienthi_lohangsanpham(conn);
         Scanner sc = new Scanner(System.in);
-        System.out.print("Nhập mã lô hàng sản phẩm: ");
-         int ma_lohang = sc.nextInt();
-        System.out.print("Nhập mã sản phẩm cần thêm: ");
+        LoHangClass.hienthi_lohang(conn);
+        System.out.print("Nhập mã lô hàng: ");
+        int ma_lohang = sc.nextInt();
+        SanPhamClass.hienthi_sanpham(conn);
+        System.out.print("Nhập mã sản phẩm: ");
         int ma_sanpham = sc.nextInt();
         
 
@@ -61,16 +63,12 @@ public class LoHangSanPhamClass {
 
         if (check == true && check == true) {
             
-            System.out.print("Nhập giá trị lô hàng sản phẩm: ");
+            System.out.print("Nhập giá nhập sản phẩm trong lô hàng: ");
             int gia_nhapvao = sc.nextInt();
-            System.out.print("Nhập số lượng lô hàng sản phẩm: ");
+            System.out.print("Nhập số lượng sản phẩm trong lô hàng: ");
             int so_luong = sc.nextInt();
             
             CallableStatement cstmt = null;
-//                System.out.println(ma_sanpham);
-//               System.out.println(ma_lohang);
-//               System.out.println(gia_nhapvao);
-//               System.out.println(so_luong);
                
             try {
                 String sql = "{call them_lohangsanpham(?,?,?,?)}";
@@ -80,7 +78,7 @@ public class LoHangSanPhamClass {
                 cstmt.setInt(3, gia_nhapvao);
                 cstmt.setInt(4, so_luong);
                 cstmt.executeQuery();
-                System.out.println("Đã thêm lô hàng sản phẩm thành công");
+                System.out.println("Đã thêm sản phẩm cho lô hàng thành công");
             } catch (SQLException ex) { //xử lý ngoại lệ
                 System.out.println("SQLException: " + ex.getMessage());
             }
@@ -91,8 +89,8 @@ public class LoHangSanPhamClass {
         
         
       public static void xoa_lohangsanpham(Connection conn) {
-        Scanner sc = new Scanner(System.in);
         hienthi_lohangsanpham(conn);
+        Scanner sc = new Scanner(System.in);
         System.out.print("Nhập mã lô hàng phẩm muốn xóa: ");
         int ma_lohang = sc.nextInt();
         System.out.print("Nhập mã sản phẩm muốn xóa: ");
@@ -108,7 +106,7 @@ public class LoHangSanPhamClass {
 //            System.out.println("Lô hàng sản phẩm vừa chọn ");
 //            hienthi_lohangsanpham(conn, ma_sanpham);
             System.out.println("Xác nhận");
-            System.out.println("Yes(1)\t No(0)");
+            System.out.println("Có(1)\t Không(0)");
             int t = sc.nextInt();
 
             if (t == 1) {

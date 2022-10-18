@@ -61,6 +61,7 @@ public class LoaiSanPhamClass {
     }
 
     public static void them_loaisanpham(Connection conn) {
+        hienthi_loaisanpham(conn);
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhập tên loại sản phẩm: ");
         String ten_loaisanpham = sc.nextLine();
