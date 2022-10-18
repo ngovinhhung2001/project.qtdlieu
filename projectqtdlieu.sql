@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 17, 2022 at 03:58 PM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.0.23
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th10 18, 2022 lúc 05:07 AM
+-- Phiên bản máy phục vụ: 10.4.24-MariaDB
+-- Phiên bản PHP: 8.0.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,14 +18,14 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `projectqtdlieu`
+-- Cơ sở dữ liệu: `projectqtdlieu`
 --
 CREATE DATABASE IF NOT EXISTS `projectqtdlieu` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `projectqtdlieu`;
 
 DELIMITER $$
 --
--- Procedures
+-- Thủ tục
 --
 DROP PROCEDURE IF EXISTS `sua_loaisanpham`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sua_loaisanpham` (IN `ma_loai` INT(10), IN `ten_loai` CHAR(50), IN `mota_loai` CHAR(100))   BEGIN
@@ -33,7 +33,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sua_loaisanpham` (IN `ma_loai` INT(
 END$$
 
 DROP PROCEDURE IF EXISTS `sua_lohang`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sua_lohang` (IN `ngay` DATE)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sua_lohang` (IN `ma_lo` INT(10), IN `ngay` DATE)   BEGIN
 	UPDATE lohang SET ngay_nhapvao = ngay where ma_lohang = ma_lo;
 END$$
 
@@ -83,7 +83,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `xoa_sanpham` (IN `ma` INT(10))   BE
 END$$
 
 --
--- Functions
+-- Các hàm
 --
 DROP FUNCTION IF EXISTS `tontai_loaisanpham`$$
 CREATE DEFINER=`root`@`localhost` FUNCTION `tontai_loaisanpham` (`ma_loai` INT(10)) RETURNS TINYINT(1)  BEGIN
@@ -123,7 +123,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `loaisanpham`
+-- Cấu trúc bảng cho bảng `loaisanpham`
 --
 
 DROP TABLE IF EXISTS `loaisanpham`;
@@ -134,7 +134,7 @@ CREATE TABLE `loaisanpham` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `loaisanpham`
+-- Đang đổ dữ liệu cho bảng `loaisanpham`
 --
 
 INSERT INTO `loaisanpham` (`ma_loaisanpham`, `ten_loaisanpham`, `mota_loaisanpham`) VALUES
@@ -144,7 +144,7 @@ INSERT INTO `loaisanpham` (`ma_loaisanpham`, `ten_loaisanpham`, `mota_loaisanpha
 -- --------------------------------------------------------
 
 --
--- Table structure for table `lohang`
+-- Cấu trúc bảng cho bảng `lohang`
 --
 
 DROP TABLE IF EXISTS `lohang`;
@@ -154,7 +154,7 @@ CREATE TABLE `lohang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `lohang`
+-- Đang đổ dữ liệu cho bảng `lohang`
 --
 
 INSERT INTO `lohang` (`ma_lohang`, `ngay_nhapvao`) VALUES
@@ -165,7 +165,7 @@ INSERT INTO `lohang` (`ma_lohang`, `ngay_nhapvao`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `lohangsanpham`
+-- Cấu trúc bảng cho bảng `lohangsanpham`
 --
 
 DROP TABLE IF EXISTS `lohangsanpham`;
@@ -176,10 +176,17 @@ CREATE TABLE `lohangsanpham` (
   `so_luong` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Đang đổ dữ liệu cho bảng `lohangsanpham`
+--
+
+INSERT INTO `lohangsanpham` (`ma_lohang`, `ma_sanpham`, `gia_nhapvao`, `so_luong`) VALUES
+(1, 2, 2000, 50);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sanpham`
+-- Cấu trúc bảng cho bảng `sanpham`
 --
 
 DROP TABLE IF EXISTS `sanpham`;
@@ -192,7 +199,7 @@ CREATE TABLE `sanpham` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `sanpham`
+-- Đang đổ dữ liệu cho bảng `sanpham`
 --
 
 INSERT INTO `sanpham` (`ma_sanpham`, `ten_sanpham`, `donvi_sanpham`, `mota_sanpham`, `ma_loaisanpham`) VALUES
@@ -202,70 +209,70 @@ INSERT INTO `sanpham` (`ma_sanpham`, `ten_sanpham`, `donvi_sanpham`, `mota_sanph
 (4, 'Bình thủy giữ nhiệt', 'Bình', 'Bình nước', 2);
 
 --
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `loaisanpham`
+-- Chỉ mục cho bảng `loaisanpham`
 --
 ALTER TABLE `loaisanpham`
   ADD PRIMARY KEY (`ma_loaisanpham`);
 
 --
--- Indexes for table `lohang`
+-- Chỉ mục cho bảng `lohang`
 --
 ALTER TABLE `lohang`
   ADD PRIMARY KEY (`ma_lohang`);
 
 --
--- Indexes for table `lohangsanpham`
+-- Chỉ mục cho bảng `lohangsanpham`
 --
 ALTER TABLE `lohangsanpham`
   ADD KEY `ma_lohang` (`ma_lohang`),
   ADD KEY `ma_sanpham` (`ma_sanpham`);
 
 --
--- Indexes for table `sanpham`
+-- Chỉ mục cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
   ADD PRIMARY KEY (`ma_sanpham`),
   ADD KEY `ma_loaisanpham` (`ma_loaisanpham`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT cho các bảng đã đổ
 --
 
 --
--- AUTO_INCREMENT for table `loaisanpham`
+-- AUTO_INCREMENT cho bảng `loaisanpham`
 --
 ALTER TABLE `loaisanpham`
   MODIFY `ma_loaisanpham` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `lohang`
+-- AUTO_INCREMENT cho bảng `lohang`
 --
 ALTER TABLE `lohang`
-  MODIFY `ma_lohang` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ma_lohang` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `sanpham`
+-- AUTO_INCREMENT cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
-  MODIFY `ma_sanpham` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ma_sanpham` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- Constraints for dumped tables
+-- Các ràng buộc cho các bảng đã đổ
 --
 
 --
--- Constraints for table `lohangsanpham`
+-- Các ràng buộc cho bảng `lohangsanpham`
 --
 ALTER TABLE `lohangsanpham`
   ADD CONSTRAINT `lohangsanpham_ibfk_1` FOREIGN KEY (`ma_lohang`) REFERENCES `lohang` (`ma_lohang`),
   ADD CONSTRAINT `lohangsanpham_ibfk_2` FOREIGN KEY (`ma_sanpham`) REFERENCES `sanpham` (`ma_sanpham`);
 
 --
--- Constraints for table `sanpham`
+-- Các ràng buộc cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
   ADD CONSTRAINT `sanpham_ibfk_1` FOREIGN KEY (`ma_loaisanpham`) REFERENCES `loaisanpham` (`ma_loaisanpham`);
