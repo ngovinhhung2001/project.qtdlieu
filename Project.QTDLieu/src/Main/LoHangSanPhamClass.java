@@ -15,7 +15,7 @@ import java.util.Scanner;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-public class LoHangSanpham {
+public class LoHangSanPhamClass {
         public static void hienthi_lohangsanpham(Connection conn) {
         PreparedStatement pstmt = null;
         ResultSet rs = null;

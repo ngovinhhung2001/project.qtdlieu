@@ -53,10 +53,12 @@ public class SanPhamClass {
             while (rs.next()) {
                 int rs_ma_sanpham = rs.getInt("ma_sanpham");
                 String rs_ten_sanpham = rs.getString("ten_sanpham");
+                String rs_donvi_sanpham = rs.getString("donvi_sanpham");
                 String rs_mota_sanpham = rs.getString("mota_sanpham");
                 int rs_ma_loaisanpham = rs.getInt("ma_loaisanpham");
                 System.out.println("Mã sản phẩm: " + rs_ma_sanpham);
                 System.out.println("Tên sản phẩm: " + rs_ten_sanpham);
+                System.out.println("Đơn vị sản phẩm: " + rs_donvi_sanpham);
                 System.out.println("Mô tả sản phẩm: " + rs_mota_sanpham);
                 System.out.println("Mã loại sản phẩm: " + rs_ma_loaisanpham);
                 System.out.println("--------------------");
@@ -142,9 +144,9 @@ public class SanPhamClass {
                     cstmt.setString(2, ten_sanpham);
                     cstmt.setString(3, donvi_sanpham);
                     cstmt.setString(4, mota_sanpham);
-                    cstmt.setInt(1, ma_loaisanpham);
+                    cstmt.setInt(5, ma_loaisanpham);
                     cstmt.executeQuery();
-                    System.out.println("Đã chỉnh sửa loại sản phẩm thành công");
+                    System.out.println("Đã chỉnh sửa sản phẩm thành công");
                 } catch (SQLException ex) { //xử lý ngoại lệ
                     System.out.println("SQLException: " + ex.getMessage());
                 }
