@@ -23,7 +23,6 @@ public class MainClass {
                     + "(4) Quản lý lô hàng sản phẩm.\n(5) Thoát khỏi chương trình.");
             System.out.print("Hãy chọn danh mục bạn muốn quản lý: ");
             danhmuc = sc.nextInt();
-            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.flush();
             if (danhmuc == 1) {
                 while (flag_chucnang) {

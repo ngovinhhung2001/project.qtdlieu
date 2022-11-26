@@ -25,9 +25,7 @@ public class LoaiSanPhamClass {
                 int rs_ma_loaisanpham = rs.getInt("ma_loaisanpham");
                 String rs_ten_loaisanpham = rs.getString("ten_loaisanpham");
                 String rs_mota_loaisanpham = rs.getString("mota_loaisanpham");
-                System.out.print("        " + rs_ma_loaisanpham + "\t\t");
-                System.out.print("" + rs_ten_loaisanpham + "\t\t");
-                System.out.println("" + rs_mota_loaisanpham);
+                System.out.printf("%-7s %-15d %-23s %s\n", ' ', rs_ma_loaisanpham, rs_ten_loaisanpham, rs_mota_loaisanpham);
             }
             System.out.println("-------------------------------------------------------------------");
         } catch (SQLException ex) { //xử lý ngoại lệ

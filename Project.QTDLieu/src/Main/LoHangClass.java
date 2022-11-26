@@ -30,8 +30,7 @@ public class LoHangClass {
             while (rs.next()) {
                 int rs_ma_lohang = rs.getInt("ma_lohang");
                 Date rs_ngay_nhapvao = rs.getDate("ngay_nhapvao");
-                System.out.print("     " + rs_ma_lohang + "\t\t");
-                System.out.println("" + rs_ngay_nhapvao);
+                System.out.printf("%-4s %-11d %s \n", ' ', rs_ma_lohang, rs_ngay_nhapvao);
             }
             System.out.println("------------------------------------");
         } catch (SQLException ex) { //xử lý ngoại lệ

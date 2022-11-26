@@ -33,10 +33,8 @@ public class LoHangSanPhamClass {
                 int rs_ma_sanpham = rs.getInt("ma_sanpham");
                 int rs_gia_nhapvao = rs.getInt("gia_nhapvao");
                 int rs_so_luong = rs.getInt("so_luong");
-                System.out.print("      " + rs_ma_lohang + "\t\t");
-                System.out.print("     " + rs_ma_sanpham + "\t\t");
-                System.out.print(rs_gia_nhapvao + "\t\t");
-                System.out.println( rs_so_luong); 
+                System.out.printf("%-5s %-14d %-10d %-15d %d\n", ' ', rs_ma_lohang, rs_ma_sanpham, rs_gia_nhapvao, rs_so_luong);
+                
             }
             System.out.println("-----------------------------------------------------------");
         } catch (SQLException ex) { //xử lý ngoại lệ

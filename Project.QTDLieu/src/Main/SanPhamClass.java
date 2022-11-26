@@ -20,20 +20,18 @@ public class SanPhamClass {
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
             
-            System.out.println("----------------------------------------------------------------------------------------");
-            System.out.println(" Mã sản phẩm\tTên sản phẩm\t\t\tMô tả sản phẩm\t\tMã loại sản phẩm");
-            System.out.println("----------------------------------------------------------------------------------------");
+            System.out.println("---------------------------------------------------------------------------------------------------------");
+            System.out.println(" Mã sản phẩm\tTên sản phẩm\t\t\tĐơn vị\t\tMô tả sản phẩm\t\tMã loại sản phẩm");
+            System.out.println("---------------------------------------------------------------------------------------------------------");
             while (rs.next()) {
                 int rs_ma_sanpham = rs.getInt("ma_sanpham");
                 String rs_ten_sanpham = rs.getString("ten_sanpham");
+                String rs_donvi_sanpham = rs.getString("donvi_sanpham");
                 String rs_mota_sanpham = rs.getString("mota_sanpham");
                 int rs_ma_loaisanpham = rs.getInt("ma_loaisanpham");
-                System.out.print("      " + rs_ma_sanpham + "\t\t");
-                System.out.print(rs_ten_sanpham + "\t\t");
-                System.out.print(rs_mota_sanpham + "\t\t");
-                System.out.println("        " + rs_ma_loaisanpham); 
+                System.out.printf("%-5s %-9d %-31s %-15s %-30s %d\n", ' ', rs_ma_sanpham, rs_ten_sanpham, rs_donvi_sanpham,rs_mota_sanpham, rs_ma_loaisanpham );
             }
-            System.out.println("----------------------------------------------------------------------------------------");
+            System.out.println("---------------------------------------------------------------------------------------------------------");
         } catch (SQLException ex) { //xử lý ngoại lệ
             System.out.println("SQLException: " + ex.getMessage());
         }
